@@ -9,17 +9,17 @@ import org.scalatest.FunSuite
   */
 class TicketGenerationTest extends FunSuite {
 
-  test("Generate 100 System tickets to file") {
+  test("Generate 10 System tickets to file") {
 
     val fw = new FileWriter("system-tickets.txt", false)
 
-    Ticket.generateSystemTickets(100).foreach { t =>
+    Ticket.generateSystemTickets(10).foreach { t =>
       fw.write(t.format() + "\r\n")
     }
     fw.close()
   }
 
-  test("Generate 100 Normal tickets to file") {
+  test("Generate 10 Normal tickets to file") {
 
     val fw = new FileWriter("normal-tickets.txt", false)
 
@@ -29,11 +29,11 @@ class TicketGenerationTest extends FunSuite {
     fw.close()
   }
 
-  test("Generate 100 mixed tickets to file") {
+  test("Generate 100_000 mixed tickets to file") {
 
     val fw = new FileWriter("mixed-tickets.txt", false)
 
-    (Ticket.generateSystemTickets(100) ++ Ticket.generateNormalTickets(50)).foreach { t =>
+    (Ticket.generateSystemTickets(50000) ++ Ticket.generateNormalTickets(50000)).foreach { t =>
       fw.write(t.format() + "\r\n")
     }
     fw.close()

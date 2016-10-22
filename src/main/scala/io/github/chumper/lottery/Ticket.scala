@@ -44,7 +44,7 @@ class Ticket(val normalNumbers: Set[Int], val starNumbers: Set[Int]) {
 object Ticket {
 
   val MaxNormalNumber = 50
-  val MaxStarNumber = 12
+  val MaxStarNumber = 11
   val MaxNormalSystemNumbers = 10
   val MaxStarSystemNumbers = 5
   val MinNormalSystemNumbers = 5
