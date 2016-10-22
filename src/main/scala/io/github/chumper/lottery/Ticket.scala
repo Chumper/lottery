@@ -1,7 +1,5 @@
 package io.github.chumper.lottery
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Random
 
 /**
@@ -23,13 +21,11 @@ class Ticket(val normalNumbers: Set[Int], val starNumbers: Set[Int]) {
     *
     * @return A future containing a sequence of tuples
     */
-  def combinations: Future[Seq[(Set[Int], Set[Int])]] = {
-    Future {
-      for (
-        n <- normalNumbers.toSeq.combinations(5).toSeq;
-        s <- starNumbers.toSeq.combinations(2).toSeq
-      ) yield (n.toSet, s.toSet)
-    }
+  def combinations: Seq[Ticket] = {
+    for (
+      n <- normalNumbers.toSeq.combinations(5).toSeq;
+      s <- starNumbers.toSeq.combinations(2).toSeq
+    ) yield new Ticket(n.toSet, s.toSet)
   }
 
   /**
@@ -74,8 +70,8 @@ object Ticket {
     val additionalStarNumbers = (MaxStarSystemNumbers - MinStarSystemNumbers) + 1
 
     1 to amount map { _ =>
-      val systemNumbers = Random.shuffle(1 to MaxNormalNumber).toList.take( MinNormalSystemNumbers + Random.nextInt(additionalNormalNumbers))
-      val starNumbers = Random.shuffle(1 to MaxStarNumber).toList.take( MinStarSystemNumbers + Random.nextInt(additionalStarNumbers))
+      val systemNumbers = Random.shuffle(1 to MaxNormalNumber).toList.take(MinNormalSystemNumbers + Random.nextInt(additionalNormalNumbers))
+      val starNumbers = Random.shuffle(1 to MaxStarNumber).toList.take(MinStarSystemNumbers + Random.nextInt(additionalStarNumbers))
 
       new Ticket(systemNumbers.toSet, starNumbers.toSet)
     }
@@ -88,8 +84,8 @@ object Ticket {
     */
   def generateNormalTickets(amount: Int): Seq[Ticket] = {
     1 to amount map { _ =>
-      val systemNumbers = Random.shuffle(1 to MaxNormalNumber).toList.take( MinNormalSystemNumbers)
-      val starNumbers = Random.shuffle(1 to MaxStarNumber).toList.take( MinStarSystemNumbers)
+      val systemNumbers = Random.shuffle(1 to MaxNormalNumber).toList.take(MinNormalSystemNumbers)
+      val starNumbers = Random.shuffle(1 to MaxStarNumber).toList.take(MinStarSystemNumbers)
 
       new Ticket(systemNumbers.toSet, starNumbers.toSet)
     }

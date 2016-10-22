@@ -5,7 +5,7 @@ import java.io.FileWriter
 import org.scalatest.FunSuite
 
 /**
-  * Created by n.plaschke on 22/10/16.
+  * Will generate the tickets to work with
   */
 class TicketGenerationTest extends FunSuite {
 
@@ -34,6 +34,16 @@ class TicketGenerationTest extends FunSuite {
     val fw = new FileWriter("mixed-tickets.txt", false)
 
     (Ticket.generateSystemTickets(100) ++ Ticket.generateNormalTickets(50)).foreach { t =>
+      fw.write(t.format() + "\r\n")
+    }
+    fw.close()
+  }
+
+  test("Generate 1 winning ticket to file") {
+
+    val fw = new FileWriter("winning-ticket.txt", false)
+
+    Ticket.generateNormalTickets(1).foreach { t =>
       fw.write(t.format() + "\r\n")
     }
     fw.close()
