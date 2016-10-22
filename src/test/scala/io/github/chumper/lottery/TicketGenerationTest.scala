@@ -5,7 +5,7 @@ import java.io.FileWriter
 import org.scalatest.FunSuite
 
 /**
-  * Will generate the tickets to work with
+  * Will generate the tickets to work with, not a real test but prepares the application
   */
 class TicketGenerationTest extends FunSuite {
 
@@ -29,11 +29,11 @@ class TicketGenerationTest extends FunSuite {
     fw.close()
   }
 
-  test("Generate 100_000 mixed tickets to file") {
+  test("Generate 10000 mixed tickets to file") {
 
     val fw = new FileWriter("mixed-tickets.txt", false)
 
-    (Ticket.generateSystemTickets(50000) ++ Ticket.generateNormalTickets(50000)).foreach { t =>
+    (Ticket.generateSystemTickets(5000) ++ Ticket.generateNormalTickets(5000)).foreach { t =>
       fw.write(t.format() + "\r\n")
     }
     fw.close()

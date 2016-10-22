@@ -3,7 +3,7 @@ package io.github.chumper.lottery
 import org.scalatest.FunSuite
 
 /**
-  * Created by n.plaschke on 21/10/16.
+  * Will test if a ticket can be constructed wit valid numbers and fails on invalid numbers
   */
 class TicketTest extends FunSuite {
 
