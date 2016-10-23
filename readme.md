@@ -5,6 +5,8 @@ It will read a winning ticket and participating tickets and calculates the amoun
 
 The tickets can be found in `winning-ticket.txt` and `tickets.txt` for the winning ticket and all participating tickets.
 
+All settings can be manipulated through the options, e.g. 100 numbers instead of 50 and so on.
+
 It may not be the best scala code but I think its quite well done for this exercise.
 
 # Code
@@ -31,6 +33,8 @@ It will read the participating tickets from a file and evaluates them in a `Futu
 The main class starts the program. It will create the tickets if they are not available yet and then starts the process.
 For all combinations of the winning `Ticket` a new `Lottery` is created and all participating tickets will be evaluated for this one combination and it will wait on all futures.
 In the end it will print the time taken and the results of the draw.
+
+The `Main` class also contained a programm that will list all combinations of tickets read from a file, but atm it is not active.
 
 # Tests
 
@@ -77,3 +81,25 @@ To run the application just type
 > sbt run
 
 or download the file from [https://github.com/Chumper/lottery/releases](here) all options are listed there.
+
+It will output something like this:
+```bash
+===========================
+Calculation took 1275 ms.
+Winning ticket: 5,13,2,31,19:6,10
+Winning class 1 has 0 winner!
+Winning class 2 has 0 winner!
+Winning class 3 has 0 winner!
+Winning class 4 has 0 winner!
+Winning class 5 has 54 winner!
+Winning class 6 has 222 winner!
+Winning class 7 has 278 winner!
+Winning class 8 has 4170 winner!
+Winning class 9 has 5187 winner!
+Winning class 10 has 11953 winner!
+Winning class 11 has 20497 winner!
+Winning class 12 has 82436 winner!
+Winning class 13 has 186391 winner!
+Total number of tickets: 3761044
+===========================
+```
