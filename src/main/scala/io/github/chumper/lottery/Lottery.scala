@@ -28,6 +28,7 @@ class Lottery(winningTicket: Ticket) {
     * the total number of participated tickets.
     */
   def printResult = {
+    println("Winning ticket: " + winningTicket)
     statistic.keySet.toSeq.sorted.foreach { i => println(s"Winning class $i has ${statistic(i)} winner!")}
     println("Total number of tickets: " + totalTickets.get)
   }

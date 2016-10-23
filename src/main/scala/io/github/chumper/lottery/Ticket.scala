@@ -1,5 +1,7 @@
 package io.github.chumper.lottery
 
+import com.typesafe.config.ConfigFactory
+
 import scala.util.Random
 
 /**
@@ -8,8 +10,8 @@ import scala.util.Random
 class Ticket(val normalNumbers: Set[Int], val starNumbers: Set[Int]) {
 
   // check all values if they are in the correct range
-  require(normalNumbers forall (i => i > 0 && i <= Ticket.MaxNormalNumber), "Normal numbers contains invalid numbers")
-  require(starNumbers forall (i => i >= 0 && i <= Ticket.MaxStarNumber), "Star numbers contains invalid numbers")
+  require(normalNumbers forall (i => i >= Ticket.MinNormalNumber && i <= Ticket.MaxNormalNumber), "Normal numbers contains invalid numbers")
+  require(starNumbers forall (i => i >= Ticket.MinStarNumber && i <= Ticket.MaxStarNumber), "Star numbers contains invalid numbers")
   require(normalNumbers.size >= Ticket.MinNormalSystemNumbers, s"At least ${Ticket.MinNormalSystemNumbers} normal numbers are needed")
   require(starNumbers.size >= Ticket.MinStarSystemNumbers, s"At least ${Ticket.MinStarSystemNumbers} star numbers are needed")
   require(normalNumbers.size <= Ticket.MaxNormalSystemNumbers, s"At most ${Ticket.MaxNormalSystemNumbers} normal numbers are needed")
@@ -44,12 +46,16 @@ class Ticket(val normalNumbers: Set[Int], val starNumbers: Set[Int]) {
 object Ticket {
 
   // CONSTANTS
-  val MaxNormalNumber = 50
-  val MaxStarNumber = 12
-  val MaxNormalSystemNumbers = 10
-  val MaxStarSystemNumbers = 5
-  val MinNormalSystemNumbers = 5
-  val MinStarSystemNumbers = 2
+  val config = ConfigFactory.load()
+
+  val MaxNormalNumber = config.getInt("lottery.number.normal.max")
+  val MinNormalNumber = config.getInt("lottery.number.normal.min")
+  val MaxStarNumber = config.getInt("lottery.number.star.max")
+  val MinStarNumber = config.getInt("lottery.number.star.min")
+  val MaxNormalSystemNumbers = config.getInt("lottery.ticket.numbers.normal.max")
+  val MinNormalSystemNumbers = config.getInt("lottery.ticket.numbers.normal.min")
+  val MaxStarSystemNumbers = config.getInt("lottery.ticket.numbers.star.max")
+  val MinStarSystemNumbers = config.getInt("lottery.ticket.numbers.star.min")
 
   /**
     * Parse a ticket from a string representation (e.g. 1,2,3,4,5:1,2) to a valid ticket
@@ -66,27 +72,13 @@ object Ticket {
     *
     * @param amount the number of tickets to generate
     */
-  def generateSystemTickets(amount: Int): Seq[Ticket] = {
+  def generateTickets(amount: Int): Seq[Ticket] = {
     val additionalNormalNumbers = (MaxNormalSystemNumbers - MinNormalSystemNumbers) + 1
     val additionalStarNumbers = (MaxStarSystemNumbers - MinStarSystemNumbers) + 1
 
     1 to amount map { _ =>
       val systemNumbers = Random.shuffle(1 to MaxNormalNumber).toList.take(MinNormalSystemNumbers + Random.nextInt(additionalNormalNumbers))
       val starNumbers = Random.shuffle(1 to MaxStarNumber).toList.take(MinStarSystemNumbers + Random.nextInt(additionalStarNumbers))
-
-      new Ticket(systemNumbers.toSet, starNumbers.toSet)
-    }
-  }
-
-  /**
-    * Will generate the given amount of normal tickets
-    *
-    * @param amount the number of tickets to generate
-    */
-  def generateNormalTickets(amount: Int): Seq[Ticket] = {
-    1 to amount map { _ =>
-      val systemNumbers = Random.shuffle(1 to MaxNormalNumber).toList.take(MinNormalSystemNumbers)
-      val starNumbers = Random.shuffle(1 to MaxStarNumber).toList.take(MinStarSystemNumbers)
 
       new Ticket(systemNumbers.toSet, starNumbers.toSet)
     }

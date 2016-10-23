@@ -9,8 +9,6 @@ class TicketCombinationTest extends FunSuite with Matchers {
 
   test("A Ticket yields only one combination") {
 
-    val tickets = Ticket.generateSystemTickets(1)
-
     val t = new Ticket(Set(1, 2, 3, 4, 5), Set(1, 2))
 
     t.combinations should have size 1
