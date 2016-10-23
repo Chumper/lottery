@@ -44,7 +44,7 @@ To start the tests just run
 
 # Options
 
-I used the [https://github.com/typesafehub/config](Typesafe Config) for parsing and managing the options in the application, so everything is configurable.
+I used the [Typesafe Config](https://github.com/typesafehub/config) for parsing and managing the options in the application, so everything is configurable.
 The default config looks like this:
 ```hocon
 lottery {
@@ -93,7 +93,7 @@ Available options are:
 To run the application just type 
 > sbt run
 
-or download the file from [https://github.com/Chumper/lottery/releases](here) all options are listed there.
+or download the file from [here](https://github.com/Chumper/lottery/releases) all options are listed there.
 
 It will output something like this:
 ```bash
