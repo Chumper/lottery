@@ -75,6 +75,18 @@ lottery {
 }
 ```
 
+Available options are:
+`-Dlottery.number.normal.max=50` -> highest normal number possible in a ticket
+`-Dlottery.number.normal.min=1` -> lowest normal number possible in a ticket
+`-Dlottery.number.star.max=12` -> highest star number possible in a ticket 
+`-Dlottery.number.star.min=1` -> lowest star number possible in a ticket
+`-Dlottery.winningTicket=winning-ticket.txt` -> file name of the winning ticket
+`-Dlottery.participatingTickets=tickets.txt` -> file name of all participating tickets
+`-Dlottery.ticket.numbers.normal.max=10` -> max amount of normal numbers possible in a ticket
+`-Dlottery.ticket.numbers.normal.min=5` -> min amount of normal numbers possible in a ticket
+`-Dlottery.ticket.numbers.star.max=5` -> max amount of star numbers possible in a ticket
+`-Dlottery.ticket.numbers.star.min=2` -> min amount of star numbers possible in a ticket
+
 # Running the application
 
 To run the application just type 
